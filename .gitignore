@@ -1,4 +1,4 @@
-*.o
-*.skel.h
-minimal
-bootstrap
+**/*.o
+**/*.skel.h
+src/minimal/minimal
+src/bootstrap/bootstrap

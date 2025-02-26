@@ -3,13 +3,13 @@ vmlinux.h:
 	bpftool btf dump file /sys/kernel/btf/vmlinux format c > vmlinux.h 
 
 # build bpf kernel object file
-%.bpf.o: %.bpf.c vmlinux.h
+minimal.bpf.o: minimal.bpf.c vmlinux.h
 	clang -g -O2 -target bpf -c $< -o $@
 
 # generate skeleton
-tcprtt.skel.h tcprtt_tp.skel.h: %.skel.h: %.bpf.o
+minimal.skel.h: minimal.bpf.o
 	bpftool gen skeleton $< > $@
 
 # build app
-%: %.c %.skel.h
+minimal: minimal.c minimal.skel.h
 	clang -g $< -lbpf -lelf -lz -o $@
